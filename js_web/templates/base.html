@@ -1,0 +1,158 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Jeremy Schroeder</title>
+    
+    <!-- Bulma Import -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    
+    <!-- Bulma Social Sharing Import -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@2/css/all.min.css" />
+    
+    <!-- favicon link -->
+    <!-- <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.ico') }}">-->
+    
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/27ddd86667.js" crossorigin="anonymous"></script>
+
+    <!-- fancy title font-->
+    <!-- B612 Mono -->
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=B612+Mono">
+
+    <!--    Add background style here for Jinja2 to work-->
+    <style>
+        .b612-mono {
+            font-family: 'B612 Mono', serif;
+        }
+
+        /* CSS styles for the video background */
+        #video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        #video-background {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="video-container">
+    <video id="video-background" autoplay muted loop>
+          <source src="{{ video_url }}" type="video/mp4">
+    </video>
+</div>
+<section class="hero is-transparent is-fullheight  ">
+
+  <!-- Hero head: will stick at the top -->
+    <div class="hero-head">
+          <!-- NavBar -->
+<!--    <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">-->
+<!--        <div class="navbar-brand">-->
+<!--            &lt;!&ndash; Add logo here &ndash;&gt;-->
+<!--            <a class="navbar-item" href="{{ url_for('home.index') }}">-->
+<!--&lt;!&ndash;                <img src="{{ brand_logo_url }}" height="28">&ndash;&gt;-->
+<!--            </a>-->
+<!--            &lt;!&ndash; burgers Mmmmmmm &ndash;&gt;-->
+<!--            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navigation">-->
+<!--              <span aria-hidden="true"></span>-->
+<!--              <span aria-hidden="true"></span>-->
+<!--              <span aria-hidden="true"></span>-->
+<!--            </a>-->
+<!--        </div>-->
+
+<!--        <div id="navigation" class="navbar-menu">-->
+<!--            <div class="navbar-start">-->
+<!--                &lt;!&ndash; For the left side NavBar &ndash;&gt;-->
+<!--            </div>-->
+
+<!--            <div class="navbar-end ">-->
+<!--                &lt;!&ndash; For the right side NavBar &ndash;&gt;-->
+<!--&lt;!&ndash;                <a class="navbar-item b612-mono has-text-primary" href="{{ url_for('home.index') }}">&ndash;&gt;-->
+<!--&lt;!&ndash;                    home&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                <a href="https://blog.example.com" class="navbar-item b612-mono has-text-primary">&ndash;&gt;-->
+<!--&lt;!&ndash;                    blog&ndash;&gt;-->
+<!--&lt;!&ndash;                </a>&ndash;&gt;-->
+
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+</div>
+
+  <!-- Hero content: will be in the middle -->
+    <div class="hero-body">
+            <div class="container is-widescreen has-text-centered">
+                <!-- messages from FLask -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                <div class="notification is-primary">
+                <button class="delete"></button>
+                  {{ messages[0] }}
+                </div>
+                {% endif %}
+            {% endwith %}
+
+               {% block content %}
+                    <!-- Flask content gets inserted here -->
+               {% endblock %}
+            </div>
+    </div>
+
+<!-- JavaScript to make burger menu work -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const $nbBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        if ($nbBurgers.length < 1) {
+            return;
+        }
+        $nbBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+            });
+        });
+    });
+</script>
+
+<!--    JavaScript to delete notifications. -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+    const $notification = $delete.parentNode;
+
+    $delete.addEventListener('click', () => {
+      $notification.parentNode.removeChild($notification);
+    });
+  });
+});
+</script>
+
+</body>
+
+</html>
