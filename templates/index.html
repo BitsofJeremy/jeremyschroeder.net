@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jeremy Schroeder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="https://kit.fontawesome.com/190f640d6f.js" crossorigin="anonymous"></script>
+</head>
+<body class="is-preload">
+    <div id="bg"></div>
+
+    <nav class="navbar">
+        <div class="container">
+            <button class="hamburger" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul>
+                <li>
+                    <a href="https://bits.jeremyschroeder.net/">
+                        <i class="icon fa-solid fa-square-rss"></i>
+                        <span class="nav-label">Blog</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/BitsofJeremy">
+                        <i class="icon fa-brands fa-square-github"></i>
+                        <span class="nav-label">GitHub</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/BitsofJeremy">
+                        <i class="icon fa-brands fa-square-x-twitter"></i>
+                        <span class="nav-label">Twitter</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://bitsofjeremy.itch.io/">
+                        <i class="icon fa-brands fa-itch-io"></i>
+                        <span class="nav-label">Itch</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/jeremyschroeder-pro">
+                        <i class="icon fa-brands fa-linkedin"></i>
+                        <span class="nav-label">LinkedIn</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="flash-messages" class="flash-messages"></div>
+
+    <main class="container">
+        <header id="header">
+            <img src="{{ url_for('static', filename='images/profile.jpeg') }}" alt="Profile Image" class="rounded-image">
+            <h1>Jeremy Schroeder</h1>
+            <p class="blinking-cursor">Designing. Coding. Building.</p>
+        </header>
+
+        <form id="contact-form" method="post" action="{{ url_for('contact') }}">
+            <input type="text" name="name" id="name" placeholder="$ enter your name" required>
+            <input type="email" name="email" id="email" placeholder="$ enter your email" required>
+            <textarea name="message" id="message" placeholder="$ type your message" rows="4" required></textarea>
+            <input type="submit" value="$ send message">
+        </form>
+    </main>
+
+    <footer id="footer">
+        <div class="container">
+            <p>&copy; 2024 JeremySchroeder.net</p>
+        </div>
+    </footer>
+
+    <script>
+        // Background image settings
+        var bgSettings = {
+            images: [
+                ['{{ url_for("static", filename="images/15p.jpg") }}', 'center'],
+                ['{{ url_for("static", filename="images/30p.jpg") }}', 'center'],
+                ['{{ url_for("static", filename="images/60p.jpg") }}', 'center']
+            ],
+            delay: 6000
+        };
+    </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
