@@ -63,6 +63,10 @@
             <input type="text" name="name" id="name" placeholder="$ enter your name" required>
             <input type="email" name="email" id="email" placeholder="$ enter your email" required>
             <textarea name="message" id="message" placeholder="$ type your message" rows="4" required></textarea>
+            <!-- CAPTCHA implementation -->
+            <div class="captcha-container">
+                {{ captcha_html(captcha)|safe }}
+            </div>
             <input type="submit" value="$ send message">
         </form>
     </main>
@@ -74,6 +78,14 @@
     </footer>
 
     <script>
+        // Captcha text formatting
+        document.addEventListener('DOMContentLoaded', function() {
+        var captchaInput = document.querySelector('.simple-captcha-text');
+        if (captchaInput) {
+            captchaInput.setAttribute('placeholder', '$ enter captcha text');
+        }
+        });
+
         // Background image settings
         var bgSettings = {
             images: [

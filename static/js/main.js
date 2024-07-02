@@ -55,8 +55,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data.status === 'success') {
                 showFlashMessage('Thank you for your message! We\'ll get back to you soon.', 'success');
                 contactForm.reset();
+                // Reload the page to get a new captcha
+                setTimeout(() => {
+                    location.reload();
+                }, 3000);
             } else {
-                showFlashMessage('An error occurred while sending your message. Please try again later.', 'error');
+                showFlashMessage(data.message || 'An error occurred while sending your message. Please try again later.', 'error');
             }
         })
         .catch(error => {

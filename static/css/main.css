@@ -258,6 +258,49 @@ body {
     animation: bgAnimation 45s linear infinite;
 }
 
+/* CAPTCHA styles */
+.captcha-container {
+    margin-bottom: 1rem;
+    background-color: #2c3038; /* Slightly lighter than the main form background */
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center; /* Center the content */
+}
+
+.captcha-container img {
+    max-width: 100%;
+    height: auto;
+    display: inline-block; /* Allow centering */
+    margin-bottom: 0.5rem; /* Add some space between image and input */
+}
+
+.simple-captcha-text {
+    width: 100%;
+    padding: 0.5rem;
+    background-color: #000000; /* Black background for input */
+    color: var(--terminal-color);
+    border: none;
+    border-bottom: 1px solid var(--terminal-color);
+    font-family: 'Source Code Pro', monospace;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.simple-captcha-text:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 5px rgba(97, 175, 239, 0.5);
+}
+
+/* Style for placeholder text */
+.simple-captcha-text::placeholder {
+    color: var(--terminal-color);
+    opacity: 0.7; /* Slightly dimmed to distinguish from actual input */
+}
+
+.simple-captcha-text:focus::placeholder {
+    opacity: 0.5; /* Even dimmer when focused */
+}
+
 @media screen and (max-width: 768px) {
     .navbar ul {
         display: none;
