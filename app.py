@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, flash, jsonify
+from flask import Flask, render_template, request, flash, url_for, redirect
 import requests
 from datetime import timedelta
 import logging
@@ -10,7 +10,7 @@ from flask_simple_captcha import CAPTCHA
 app = Flask(__name__)
 
 # App configuration
-app.config['APP_VERSION'] = '0.0.3'
+app.config['APP_VERSION'] = '0.0.4'
 app.config['APP_NAME'] = 'jeremyschroeder.net'
 app.config['HOST'] = '127.0.0.1'
 app.config['PORT'] = 5052
@@ -66,7 +66,15 @@ if not app.debug:
 @app.route('/')
 def index():
     new_captcha = SIMPLE_CAPTCHA.create()
-    return render_template('index.html', captcha=new_captcha)
+    video_url = url_for(
+        'static',
+        filename='videos/background_video.mp4'
+    )
+    return render_template(
+        'index.html',
+        captcha=new_captcha,
+        video_url=video_url
+    )
 
 @app.route('/contact', methods=['POST'])
 def contact():
@@ -80,15 +88,15 @@ def contact():
         if send_email(name, email, message):
             flash("Thank you for your message! We'll get back to you soon.", "success")
             app.logger.info(f"Contact form submitted successfully by {email}")
-            return jsonify({"status": "success"})
+            return redirect(url_for('index'))
         else:
             flash("An error occurred while sending your message. Please try again later.", "error")
             app.logger.error(f"Failed to send email from {email}")
-            return jsonify({"status": "error", "message": "Failed to send email"})
+            return redirect(url_for('index'))
     else:
         flash("CAPTCHA verification failed. Please try again.", "error")
         app.logger.warning(f"Failed CAPTCHA attempt from {email}")
-        return jsonify({"status": "error", "message": "CAPTCHA verification failed"})
+        return redirect(url_for('index'))
 
 def send_email(name, email, message):
     url = f"https://api.mailgun.net/v3/{app.config['DOMAIN_NAME']}/messages"
