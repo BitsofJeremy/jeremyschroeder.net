@@ -18,89 +18,28 @@
         <h1 class="text-light mb-3">BitsofJeremy</h1>
         <p class="text-light mb-4">python, godot, blender, and ai. oh my!</p>
 
-        <!-- Social Links -->
-        <div class="social-links mb-5">
-            <a href="https://github.com/BitsofJeremy"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fab fa-github"></i>
-                GitHub
-            </a>
+        <!-- Horizontal Social Links -->
+        <div class="social-links horizontal-links mb-5">
             <a href="https://bsky.app/profile/jeremyschroeder.net"
                class="btn btn-outline-light"
                target="_blank">
                 <i class="fa-brands fa-bluesky"></i>
                 Bluesky
             </a>
-            <a href="https://warpcast.com/~/channel/bitsofjeremy"
+            <a href="https://github.com/BitsofJeremy"
                class="btn btn-outline-light"
                target="_blank">
-                        <i class="icon fa-solid fa-archway"></i>
-                Warpcast
+                <i class="fab fa-github"></i>
+                GitHub
             </a>
             <a href="https://bitsofjeremy.itch.io/"
                class="btn btn-outline-light"
                target="_blank">
-                        <i class="icon fa-brands fa-itch-io"></i>
+                <i class="fa-brands fa-itch-io"></i>
                 Itch.io
             </a>
-            <a href="https://www.linkedin.com/in/jeremyschroeder-pro"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fab fa-linkedin"></i>
-                LinkedIn
-            </a>
-            <a href="https://www.instagram.com/bitsofjeremy/"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fab fa-instagram"></i>
-                Instagram
-            </a>
-            <a href="https://www.threads.net/@bitsofjeremy"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fa-brands fa-threads"></i>
-                Threads
-            </a>
         </div>
 
-        <!-- Contact Form -->
-        <div class="card bg-dark text-light">
-            <div class="card-body">
-                <h5 class="card-title mb-4">Send me a message</h5>
-                <form method="POST" action="{{ url_for('contact') }}">
-                    <div class="mb-3">
-                        <input type="text"
-                               class="form-control bg-dark text-light"
-                               name="name"
-                               placeholder="Your Name"
-                               required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="email"
-                               class="form-control bg-dark text-light"
-                               name="email"
-                               placeholder="Your Email"
-                               required>
-                    </div>
-                    <div class="mb-3">
-                        <textarea class="form-control bg-dark text-light"
-                                  name="message"
-                                  rows="3"
-                                  placeholder="Your Message"
-                                  required></textarea>
-                    </div>
-                    <div class="captcha-container text-center mb-4">
-                        {{ captcha_html(captcha)|safe }}
-                    </div>
-                    <button type="submit" class="btn btn-outline-light w-100">Send Message</button>
-                </form>
-                <br/>
-                <br/>
-                <br/>
-
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %}

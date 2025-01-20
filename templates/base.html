@@ -4,40 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeremy Schroeder</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&display=swap" rel="stylesheet">
     <!-- favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-        <script src="https://kit.fontawesome.com/190f640d6f.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/190f640d6f.js" crossorigin="anonymous"></script>
     <!-- Custom CSS -->
     <style>
-        #video-container {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            z-index: -1000;
-            background: #000;
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg,
+                #000000 25%,
+                #0a0a2e 50%,
+                #2e0a4a 75%,
+                #4a0a4a 100%);
+            position: relative;
+            overflow-x: hidden;
+            font-family: 'B612 Mono', monospace;
+            animation: gradientAnimation 15s ease infinite;
+            background-size: 400% 400%;
         }
 
-        .overlay {
-            position: fixed;
+        /* Wave effect layers */
+        body::before,
+        body::after,
+        .dark-wave {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: -999;
+            right: 0;
+            bottom: 0;
+            mix-blend-mode: screen;
+            animation-duration: 25s;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite;
+        }
+
+        /* Primary wave layer */
+        body::before {
+            background: linear-gradient(
+                45deg,
+                #0ff1ce 0%,
+                #7d4ae9 50%,
+                #ff6b6b 100%
+            );
+            background-size: 400% 400%;
+            animation-name: waveAnimation;
+            opacity: 0.15;
+        }
+
+        /* Secondary wave layer */
+        body::after {
+            background: linear-gradient(
+                -45deg,
+                #ff6b6b 0%,
+                #0ff1ce 50%,
+                #7d4ae9 100%
+            );
+            background-size: 400% 400%;
+            animation-name: waveAnimationReverse;
+            opacity: 0.1;
+        }
+
+        /* Dark contrast wave */
+        .dark-wave {
+            background: linear-gradient(
+                30deg,
+                #000000 0%,
+                #1a1a3a 30%,
+                #3a1a5a 70%,
+                #5a1a5a 100%
+            );
+            background-size: 400% 400%;
+            animation-name: darkWaveAnimation;
+            opacity: 0.3;
+            mix-blend-mode: multiply;
+            z-index: 0;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes waveAnimation {
+            0% {
+                background-position: 0% 50%;
+                opacity: 0.15;
+            }
+            50% {
+                background-position: 100% 50%;
+                opacity: 0.25;
+            }
+            100% {
+                background-position: 0% 50%;
+                opacity: 0.15;
+            }
+        }
+
+        @keyframes waveAnimationReverse {
+            0% {
+                background-position: 100% 50%;
+                opacity: 0.1;
+            }
+            50% {
+                background-position: 0% 50%;
+                opacity: 0.2;
+            }
+            100% {
+                background-position: 100% 50%;
+                opacity: 0.1;
+            }
+        }
+
+        @keyframes darkWaveAnimation {
+            0% {
+                background-position: 100% 0%;
+                opacity: 0.3;
+            }
+            50% {
+                background-position: 0% 100%;
+                opacity: 0.4;
+            }
+            100% {
+                background-position: 100% 0%;
+                opacity: 0.3;
+            }
         }
 
         .hero-section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-content {
@@ -56,27 +162,26 @@
             bottom: 0;
             width: 100%;
             background: rgba(0, 0, 0, 0.5);
+            z-index: 3;
         }
 
-        .social-links {
+        .social-links.horizontal-links {
             display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
         }
 
         .social-links .btn {
-            width: 200px;
-            text-align: left;
+            flex: 0 0 auto;
             padding: 0.5rem 1rem;
+            transition: transform 0.2s;
+            font-family: 'B612 Mono', monospace;
         }
 
-        .social-links .btn i {
-            width: 25px;
-            text-align: center;
-            margin-right: 10px;
+        .social-links .btn:hover {
+            transform: translateY(-2px);
         }
-
 
         #flash-messages {
             position: fixed;
@@ -91,18 +196,7 @@
             padding: 15px;
             border-radius: 4px;
             animation: fadeIn 0.5s;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
-            color: #721c24;
+            font-family: 'B612 Mono', monospace;
         }
 
         @keyframes fadeIn {
@@ -110,25 +204,25 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .fade {
-            transition: opacity 0.5s linear;
+        .rounded-circle {
+            transition: transform 0.3s ease;
         }
 
-        .fade.show {
-            opacity: 1;
+        .rounded-circle:hover {
+            transform: rotate(15deg);
+        }
+
+        h1, p {
+            font-family: 'B612 Mono', monospace;
         }
     </style>
 </head>
 <body>
-    <div id="video-container">
-        <!-- Video element will be added via JavaScript -->
-    </div>
-    <div class="overlay"></div>
+    <div class="dark-wave"></div>
 
     <div class="hero-section">
         <div class="hero-content">
             <div class="container">
-                <!-- Add this to your template (e.g., base.html or index.html) -->
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         <div id="flash-messages">
@@ -149,50 +243,25 @@
 
     <footer class="footer">
         <div class="container">
-            © 2024 JeremySchroeder.net
+            © 2025 JeremySchroeder.net
         </div>
     </footer>
 
     <!-- Bootstrap JS and Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Video Background JavaScript -->
+    <!-- Flash Messages Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const videoContainer = document.getElementById('video-container');
-            const video = document.createElement('video');
-            video.autoplay = true;
-            video.loop = true;
-            video.muted = true;
-            video.style.width = '100%';
-            video.style.height = '100%';
-            video.style.objectFit = 'cover';
-
-            const source = document.createElement('source');
-            source.src = "{{ video_url }}";
-            source.type = 'video/mp4';
-
-            video.appendChild(source);
-            videoContainer.appendChild(video);
-        });
-    </script>
-    <script>
-    // Auto-dismiss flash messages after 3 seconds
     document.addEventListener('DOMContentLoaded', function() {
         setTimeout(function() {
             const flashMessages = document.getElementById('flash-messages');
             if (flashMessages) {
                 const alerts = flashMessages.getElementsByClassName('alert');
                 Array.from(alerts).forEach(function(alert) {
-                    // If using Bootstrap 5
-                    const bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-
-                    // If not using Bootstrap, you can simply remove the element
-                    // alert.remove();
+                    new bootstrap.Alert(alert).close();
                 });
             }
-        }, 3000); // 3000 milliseconds = 3 seconds
+        }, 3000);
     });
     </script>
 </body>
