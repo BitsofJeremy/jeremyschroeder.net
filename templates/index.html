@@ -2,44 +2,43 @@
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-12 col-md-8 col-lg-6 text-center">
-        <br/>
-        <br/>
-        <!-- Profile Image -->
-        <div class="mb-4">
-            <a href="{{ url_for('index') }}">
-            <img src="{{ url_for('static', filename='images/profile.jpeg') }}"
-                 class="rounded-circle"
-                 alt="Profile Image"
-                 style="width: 80px; height: 80px; object-fit: cover; border: 1.5px solid #fff;">
-            </a>
+        <div class="glass-container">
+            <!-- Profile Image -->
+            <div class="mb-4">
+                <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='images/profile.jpeg') }}"
+                     class="rounded-circle"
+                     alt="Profile Image"
+                     style="width: 80px; height: 80px; object-fit: cover;">
+                </a>
+            </div>
+
+            <!-- Welcome Text -->
+            <h1 class="text-light mb-3">BitsofJeremy</h1>
+            <p class="text-light mb-4">python, godot, blender, and ai. oh my!</p>
+
+            <!-- Horizontal Social Links -->
+            <div class="social-links horizontal-links mb-3">
+                <a href="https://bsky.app/profile/jeremyschroeder.net"
+                   class="btn btn-custom"
+                   target="_blank">
+                    <i class="fa-brands fa-bluesky"></i>
+                    Bluesky
+                </a>
+                <a href="https://github.com/BitsofJeremy"
+                   class="btn btn-custom"
+                   target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+                <a href="https://bitsofjeremy.itch.io/"
+                   class="btn btn-custom"
+                   target="_blank">
+                    <i class="fa-brands fa-itch-io"></i>
+                    Itch.io
+                </a>
+            </div>
         </div>
-
-        <!-- Welcome Text -->
-        <h1 class="text-light mb-3">BitsofJeremy</h1>
-        <p class="text-light mb-4">python, godot, blender, and ai. oh my!</p>
-
-        <!-- Horizontal Social Links -->
-        <div class="social-links horizontal-links mb-5">
-            <a href="https://bsky.app/profile/jeremyschroeder.net"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fa-brands fa-bluesky"></i>
-                Bluesky
-            </a>
-            <a href="https://github.com/BitsofJeremy"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fab fa-github"></i>
-                GitHub
-            </a>
-            <a href="https://bitsofjeremy.itch.io/"
-               class="btn btn-outline-light"
-               target="_blank">
-                <i class="fa-brands fa-itch-io"></i>
-                Itch.io
-            </a>
-        </div>
-
     </div>
 </div>
 {% endblock %}
