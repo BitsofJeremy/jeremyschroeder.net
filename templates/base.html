@@ -17,11 +17,10 @@
         body {
             margin: 0;
             min-height: 100vh;
-            position: relative; /* Needed for z-index stacking context if children use absolute positioning */
+            position: relative;
             overflow-x: hidden;
             font-family: 'B612 Mono', monospace;
-            /* Background color can be a fallback or complement to the video */
-            background-color: #000000; 
+            background-color: #000000;
         }
 
         #bg-video {
@@ -34,7 +33,15 @@
             height: auto;
             z-index: -100;
             transform: translateX(-50%) translateY(-50%);
-            background-size: cover; /* Not strictly necessary for video but good for potential poster */
+            background-size: cover;
+        }
+
+        body.safari-fallback {
+            background: linear-gradient(to right, #283048, #859398);
+        }
+
+        body.safari-fallback #bg-video {
+            display: none;
         }
 
         .hero-section {
@@ -53,6 +60,15 @@
             color: white;
         }
 
+        .glass-container {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
         .footer {
             padding: 1rem;
             color: white;
@@ -60,7 +76,7 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.2);
             z-index: 3;
         }
 
@@ -71,15 +87,18 @@
             justify-content: center;
         }
 
-        .social-links .btn {
-            flex: 0 0 auto;
-            padding: 0.5rem 1rem;
-            transition: transform 0.2s;
+        .btn-custom {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            transition: background-color 0.3s, transform 0.2s;
             font-family: 'B612 Mono', monospace;
         }
 
-        .social-links .btn:hover {
+        .btn-custom:hover {
+            background-color: rgba(255, 255, 255, 0.2);
             transform: translateY(-2px);
+            color: white;
         }
 
         #flash-messages {
@@ -105,6 +124,7 @@
 
         .rounded-circle {
             transition: transform 0.3s ease;
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
         }
 
         .rounded-circle:hover {
@@ -113,11 +133,12 @@
 
         h1, p {
             font-family: 'B612 Mono', monospace;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <video autoplay loop muted id="bg-video">
+    <video autoplay loop muted playsinline id="bg-video">
         <source src="{{ url_for('static', filename='video/background.mp4') }}" type="video/mp4">
         Your browser does not support the video tag.
     </video>
@@ -157,6 +178,12 @@
     <!-- Flash Messages Script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Safari detection
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        if (isSafari) {
+            document.body.classList.add('safari-fallback');
+        }
+
         setTimeout(function() {
             const flashMessages = document.getElementById('flash-messages');
             if (flashMessages) {
