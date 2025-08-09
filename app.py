@@ -1,8 +1,9 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import logging
 from logging.handlers import RotatingFileHandler
+import requests
 
 
 # App initialization
@@ -17,6 +18,10 @@ app.config['PORT'] = 5052
 # Environment settings
 app.config['FLASK_ENV'] = os.environ.get('FLASK_ENV', 'production')
 app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+
+# Ghost API settings
+app.config['GHOST_API_KEY'] = os.environ.get('GHOST_API_KEY')
+app.config['GHOST_API_URL'] = 'https://bits.jeremyschroeder.net/ghost/api/content'
 
 # Security settings
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', os.urandom(32).hex())
@@ -44,9 +49,59 @@ if not app.debug:
     app.logger.info('*** JeremySchroeder.net startup ***')
 
 
+@app.template_filter('datetime_format')
+def datetime_format(value):
+    """Format datetime string from Ghost API"""
+    if not value:
+        return ''
+    try:
+        # Parse ISO format datetime from Ghost API
+        dt = datetime.fromisoformat(value.replace('Z', '+00:00'))
+        return dt.strftime('%B %d, %Y')
+    except (ValueError, AttributeError):
+        return value
+
+
 @app.route('/')
 def index():
-    return render_template('index.html')
+    blog_posts = get_recent_posts()
+    return render_template('index.html', blog_posts=blog_posts)
+
+
+@app.route('/api/posts')
+def api_posts():
+    posts = get_recent_posts()
+    return jsonify(posts)
+
+
+def get_recent_posts():
+    """Fetch up to 3 recent posts from Ghost API"""
+    if not app.config['GHOST_API_KEY']:
+        app.logger.warning('Ghost API key not configured')
+        return []
+    
+    try:
+        response = requests.get(
+            f"{app.config['GHOST_API_URL']}/posts/",
+            params={
+                'key': app.config['GHOST_API_KEY'],
+                'limit': 3,
+                'fields': 'title,slug,excerpt,published_at,url',
+                'formats': 'html'
+            },
+            timeout=5
+        )
+        
+        if response.status_code == 200:
+            data = response.json()
+            return data.get('posts', [])
+        else:
+            app.logger.error(f'Ghost API error: {response.status_code}')
+            return []
+            
+    except requests.RequestException as e:
+        app.logger.error(f'Error fetching Ghost posts: {e}')
+        return []
 
 
 if __name__ == '__main__':

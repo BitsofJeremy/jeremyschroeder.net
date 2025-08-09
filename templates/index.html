@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6 text-center">
+    <div class="col-12 col-md-10 col-lg-8 text-center">
         <div class="glass-container">
             <!-- Profile Image -->
             <div class="mb-4">
@@ -31,14 +31,45 @@
                     <i class="fab fa-github"></i>
                     GitHub
                 </a>
-                <a href="https://bitsofjeremy.itch.io/"
+                <a href="https://bits.jeremyschroeder.net"
                    class="btn btn-custom"
                    target="_blank">
-                    <i class="fa-brands fa-itch-io"></i>
-                    Itch.io
+                    <i class="fas fa-blog"></i>
+                    Blog
                 </a>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Recent Blog Posts Section -->
+{% if blog_posts %}
+<div class="row justify-content-center mt-4">
+    <div class="col-12 col-md-10 col-lg-8">
+        <div class="glass-container">
+            <h2 class="text-light mb-4 text-center">Latest from the Blog</h2>
+            <div class="blog-posts">
+                {% for post in blog_posts %}
+                <div class="blog-post fade-in-post" style="animation-delay: {{ loop.index0 * 0.2 }}s;">
+                    <h5 class="blog-title">
+                        <a href="{{ post.url }}" target="_blank" class="text-light text-decoration-none">
+                            {{ post.title }}
+                        </a>
+                    </h5>
+                    {% if post.excerpt %}
+                    <p class="blog-excerpt text-light-50">{{ post.excerpt }}</p>
+                    {% endif %}
+                    <small class="blog-date text-light-75">
+                        {% if post.published_at %}
+                            {{ post.published_at | datetime_format }}
+                        {% endif %}
+                    </small>
+                </div>
+                {% if not loop.last %}<hr class="blog-divider">{% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}
