@@ -297,12 +297,12 @@
             // Show footer if scrolled to within 100px of bottom
             if (scrollTop + windowHeight >= documentHeight - 100) {
                 footer.classList.add('show');
-                // Hide after 3 seconds if not hovering
+                // Hide after 2 seconds if not hovering
                 scrollTimeout = setTimeout(function() {
                     if (!footer.matches(':hover')) {
                         footer.classList.remove('show');
                     }
-                }, 3000);
+                }, 2000);
             } else {
                 footer.classList.remove('show');
             }
