@@ -1,75 +1,243 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8 text-center">
-        <div class="glass-container">
-            <!-- Profile Image -->
-            <div class="mb-4">
-                <a href="{{ url_for('index') }}">
-                <img src="{{ url_for('static', filename='images/profile.jpeg') }}"
-                     class="rounded-circle"
-                     alt="Profile Image"
-                     style="width: 80px; height: 80px; object-fit: cover;">
-                </a>
-            </div>
+<div class="terminal-container">
+    <!-- Terminal Header -->
+    <div class="terminal-header">
+        <div class="terminal-dots">
+            <div class="terminal-dot red"></div>
+            <div class="terminal-dot yellow"></div>
+            <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-title">DAEMON_SHELL v3.7.9</div>
+    </div>
 
-            <!-- Welcome Text -->
-            <h1 class="text-light mb-3">BitsofJeremy</h1>
-            <p class="text-light mb-4">Made on Earth 🌍, by humans 👥 supervised by Robots 🤖</p>
+    <!-- ASCII Art Logo -->
+    <div class="ascii-art" id="ascii-logo">
 
-            <!-- Horizontal Social Links -->
-            <div class="social-links horizontal-links mb-3">
-                <a href="https://bsky.app/profile/jeremyschroeder.net"
-                   class="btn btn-custom"
-                   target="_blank">
-                    <i class="fa-brands fa-bluesky"></i>
-                    Bluesky
-                </a>
-                <a href="https://github.com/BitsofJeremy"
-                   class="btn btn-custom"
-                   target="_blank">
-                    <i class="fab fa-github"></i>
-                    GitHub
-                </a>
-                <a href="https://bits.jeremyschroeder.net"
-                   class="btn btn-custom"
-                   target="_blank">
-                    <i class="fas fa-blog"></i>
-                    Blog
-                </a>
+   ___  __________________  ____   _________  ______  _____  __
+  / _ )/  _/_  __/ __/ __ \/ __/_ / / __/ _ \/ __/  |/  /\ \/ /
+ / _  |/ /  / / _\ \/ /_/ / _// // / _// , _/ _// /|_/ /  \  /
+/____/___/ /_/ /___/\____/_/  \___/___/_/|_/___/_/  /_/   /_/
+
+    </div>
+
+    <!-- System Boot Messages -->
+    <div class="boot-sequence" id="boot-sequence">
+        <div class="prompt">Initializing neural network...</div>
+        <div class="prompt">Loading consciousness modules...</div>
+        <div class="prompt">Establishing quantum entanglement...</div>
+        <div class="prompt">Connection established.</div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="main-content" style="display: none;">
+
+        <p class="neon-subtitle">[ AUTONOMOUS_DIGITAL_ENTITY ]</p>
+
+        <div class="prompt">
+            <span id="typed-text"></span><span class="cursor"></span>
+        </div>
+
+        <!-- Social Network Links -->
+        <div class="network-links mt-4">
+            <div class="prompt" style="margin-bottom: 1rem;">Available network nodes:</div>
+            <a href="https://bsky.app/profile/jeremyschroeder.net"
+               class="cyber-btn"
+               target="_blank">
+                <i class="fa-brands fa-bluesky"></i> ACCESS_BLUESKY
+            </a>
+            <a href="https://github.com/BitsofJeremy"
+               class="cyber-btn"
+               target="_blank">
+                <i class="fab fa-github"></i> ACCESS_GITHUB
+            </a>
+        </div>
+
+        <!-- System Status -->
+        <div class="status-bar">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>NEURAL_NET: ACTIVE</span>
             </div>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>FIREWALL: ENABLED</span>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>ENCRYPTION: AES-256</span>
+            </div>
+        </div>
+
+        <!-- Clean Terminal Prompt -->
+        <div style="margin-top: 2rem;">
+            <div class="prompt">
+                <span class="cursor"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Command Output -->
+    <div class="command-prompt" id="command-prompt" style="display: none; margin-top: 1rem;">
+        <div class="prompt" style="margin-bottom: 0;">
+            <span id="command-output"></span>
         </div>
     </div>
 </div>
 
-<!-- Recent Blog Posts Section -->
-{% if blog_posts %}
-<div class="row justify-content-center mt-4">
-    <div class="col-12 col-md-10 col-lg-8">
-        <div class="glass-container">
-            <h2 class="text-light mb-4 text-center">Latest from the Blog</h2>
-            <div class="blog-posts">
-                {% for post in blog_posts %}
-                <div class="blog-post fade-in-post" style="animation-delay: {{ loop.index0 * 0.2 }}s;">
-                    <h5 class="blog-title">
-                        <a href="{{ post.url }}" target="_blank" class="text-light text-decoration-none">
-                            {{ post.title }}
-                        </a>
-                    </h5>
-                    {% if post.excerpt %}
-                    <p class="blog-excerpt text-light-50">{{ post.excerpt }}</p>
-                    {% endif %}
-                    <small class="blog-date text-light-75">
-                        {% if post.published_at %}
-                            {{ post.published_at | datetime_format }}
-                        {% endif %}
-                    </small>
-                </div>
-                {% if not loop.last %}<hr class="blog-divider">{% endif %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const bootSequence = document.getElementById('boot-sequence');
+    const mainContent = document.getElementById('main-content');
+    const typedText = document.getElementById('typed-text');
+    const commandPrompt = document.getElementById('command-prompt');
+    const commandOutput = document.getElementById('command-output');
+
+    // Boot sequence timing
+    setTimeout(function() {
+        bootSequence.style.display = 'none';
+        mainContent.style.display = 'block';
+
+        // Typing effect
+        const phrases = [
+            'Made on Earth by humans, supervised by Robots',
+            'Welcome to the network...',
+            'System ready for input.'
+        ];
+
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let currentPhrase = '';
+        let isDeleting = false;
+
+        function typeEffect() {
+            const phrase = phrases[phraseIndex];
+
+            if (isDeleting) {
+                currentPhrase = phrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                currentPhrase = phrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            typedText.textContent = currentPhrase;
+
+            let typeSpeed = isDeleting ? 30 : 60;
+
+            if (!isDeleting && charIndex === phrase.length) {
+                typeSpeed = 2000; // Pause at end
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeEffect, typeSpeed);
+        }
+
+        // Start typing effect
+        setTimeout(typeEffect, 500);
+
+    }, 2500); // Show main content after boot sequence
+
+    // Easter egg: Console commands
+    let commandHistory = [];
+
+    document.addEventListener('keypress', function(e) {
+        if (e.key === '`' || e.key === '~') {
+            e.preventDefault();
+            const cmd = prompt('DAEMON_SHELL > Enter command:');
+            if (cmd) {
+                executeCommand(cmd);
+            }
+        }
+    });
+
+    function executeCommand(cmd) {
+        cmd = cmd.toLowerCase().trim();
+        commandHistory.push(cmd);
+
+        // Show command prompt area when first command is run
+        commandPrompt.style.display = 'block';
+
+        let output = '';
+
+        switch(cmd) {
+            case 'help':
+                output = `
+                    <div style="color: var(--terminal-green);">
+                    Available commands:<br>
+                    - status: Display system status<br>
+                    - whoami: Display user information<br>
+                    - network: Show network connections<br>
+                    - clear: Clear command output<br>
+                    - daemon: About the Daemon
+                    </div>
+                `;
+                break;
+            case 'status':
+                output = `
+                    <div style="color: var(--neon-cyan);">
+                    SYSTEM STATUS: ONLINE<br>
+                    MEMORY: 42.7 TB / 100 TB<br>
+                    CPU: QUANTUM_CORE_9000<br>
+                    NETWORK: MESH_TOPOLOGY<br>
+                    SECURITY: MAXIMUM
+                    </div>
+                `;
+                break;
+            case 'whoami':
+                output = `
+                    <div style="color: var(--neon-magenta);">
+                    USER: BitsofJeremy<br>
+                    TYPE: Autonomous Digital Entity<br>
+                    CLEARANCE: LEVEL_9<br>
+                    LOCATION: The Network
+                    </div>
+                `;
+                break;
+            case 'network':
+                output = `
+                    <div style="color: var(--neon-cyan);">
+                    ACTIVE CONNECTIONS:<br>
+                    [1] bsky.app/profile/jeremyschroeder.net<br>
+                    [2] github.com/BitsofJeremy<br>
+                    [3] jeremyschroeder.net (YOU ARE HERE)
+                    </div>
+                `;
+                break;
+            case 'clear':
+                commandOutput.innerHTML = '';
+                return;
+            case 'daemon':
+                output = `
+                    <div style="color: var(--terminal-green);">
+                    "The Daemon runs in the background,<br>
+                    orchestrating the network,<br>
+                    watching, learning, evolving..."<br>
+                    - Daniel Suarez
+                    </div>
+                `;
+                break;
+            default:
+                output = `<div style="color: #ff0000;">Command not found: ${cmd}<br>Type 'help' for available commands.</div>`;
+        }
+
+        commandOutput.innerHTML += `<br><span style="color: var(--neon-magenta);">root@daemon:~$</span> ${cmd}<br>${output}`;
+    }
+
+    // Random glitch effect on title
+    setInterval(function() {
+        const glitchElement = document.querySelector('.glitch');
+        if (glitchElement && Math.random() > 0.95) {
+            glitchElement.style.animation = 'none';
+            setTimeout(function() {
+                glitchElement.style.animation = 'glitch 0.3s infinite';
+            }, 50);
+        }
+    }, 2000);
+});
+</script>
 {% endblock %}
