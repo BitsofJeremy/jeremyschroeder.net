@@ -21,13 +21,6 @@ This is a minimalist personal website (jeremyschroeder.net) deployed as a static
 - `README.md`: Documentation and deployment instructions
 - `CLAUDE.md`: This file
 
-### Archived Files
-
-The following Flask-related files are kept in `archive/` for reference but are no longer used:
-- `app.py`: Former Flask application
-- `templates/`: Former Jinja2 templates
-- `requirements.txt`, `pyproject.toml`, `uv.lock`: Former Python dependencies
-
 ## Development
 
 ### Local Testing
