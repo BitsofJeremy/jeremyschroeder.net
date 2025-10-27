@@ -2,6 +2,8 @@
 
 A minimalist personal website featuring ASCII art logo.
 
+---
+
 ## Overview
 
 Static HTML website hosted on GitHub Pages. Features a clean design with green ASCII art logo on a black background.
