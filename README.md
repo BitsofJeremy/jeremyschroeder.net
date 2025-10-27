@@ -10,6 +10,7 @@ Static HTML website hosted on GitHub Pages. Features a clean design with green A
 https://patorjk.com/software/taag/#p=display&f=Rectangles&t=jeremy%0Aschroeder%0A.net&x=none&v=4&h=4&w=80&we=false
 
 
+```bash
    _
   |_|___ ___ ___ _____ _ _
   | | -_|  _| -_|     | | |
@@ -27,6 +28,7 @@ https://patorjk.com/software/taag/#p=display&f=Rectangles&t=jeremy%0Aschroeder%0
  _|   | -_|  _|
 |_|_|_|___|_|
 
+```
 
 
 ## Local Development
