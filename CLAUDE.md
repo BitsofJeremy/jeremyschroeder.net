@@ -4,62 +4,101 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a personal portfolio website (jeremyschroeder.net) built with Flask. The site features a minimalist design with a video background and glassmorphism UI elements.
+This is a minimalist personal website (jeremyschroeder.net) deployed as a static HTML page on GitHub Pages. The site displays a simple ASCII art logo with a retro terminal aesthetic.
 
 ## Architecture
 
-- **Framework**: Flask web application (Python 3.10+)
-- **Structure**: Simple single-page application with template inheritance
-- **Templates**: Jinja2 templates using Bootstrap 5 and Font Awesome
-- **Static Assets**: Profile image, favicon, and background video stored in `/static`
-- **Logging**: Rotating file handler for production logs in `/logs` directory
+- **Type**: Static HTML website (no backend, no build process)
+- **Hosting**: GitHub Pages
+- **Structure**: Single HTML file with inline CSS
+- **Dependencies**: None - pure HTML/CSS
 
 ### Key Files
 
-- `app.py`: Main Flask application with configuration and single route
-- `templates/base.html`: Base template with video background and glassmorphism styling
-- `templates/index.html`: Homepage content extending base template
-- `pyproject.toml`: Python project configuration and dependencies
+- `index.html`: Main HTML file containing all markup and styling
+- `static/images/favicon.ico`: Site favicon
+- `.nojekyll`: GitHub Pages configuration file (prevents Jekyll processing)
+- `README.md`: Documentation and deployment instructions
+- `CLAUDE.md`: This file
 
-## Development Commands
+### Archived Files
 
-### Running the Application
+The following Flask-related files are kept in `archive/` for reference but are no longer used:
+- `app.py`: Former Flask application
+- `templates/`: Former Jinja2 templates
+- `requirements.txt`, `pyproject.toml`, `uv.lock`: Former Python dependencies
+
+## Development
+
+### Local Testing
+
+Simply open the HTML file in a browser, or use a local server:
+
 ```bash
-# Development mode
-python app.py
+# Using Python
+python -m http.server 8000
 
-# Production mode  
-FLASK_ENV=production python app.py
+# Using PHP
+php -S localhost:8000
+
+# Or just open the file
+open index.html
 ```
 
-### Environment Variables
-- `FLASK_ENV`: Set to 'development' for debug mode
-- `FLASK_DEBUG`: Set to 'true' to enable debug mode
-- `SECRET_KEY`: Flask secret key (auto-generated if not set)
-- `CSRF_SESSION_KEY`: CSRF protection key (auto-generated if not set)
+### Making Changes
 
-### Dependencies
-Install dependencies using uv (lock file present) or pip:
-```bash
-# With uv
-uv sync
+Edit `index.html` directly. The file contains:
+- HTML structure
+- Inline CSS in the `<head>` section
+- ASCII art content in the `<body>`
 
-# With pip
-pip install -r requirements.txt
-```
+No build process or compilation required - changes are immediately visible.
 
 ## Design System
 
-The site uses a dark theme with glassmorphism effects:
-- Font: B612 Mono (Google Fonts)
-- Background: Video with fallback gradient for Safari
-- UI: Glass containers with backdrop blur
-- Colors: White text on dark/transparent backgrounds
-- Layout: Centered single-column design with fixed footer
+The site uses a minimalist retro terminal aesthetic:
+- **Font**: Courier New (monospace, system font)
+- **Background**: Solid black (#000000)
+- **Text color**: Terminal green (#00ff00)
+- **Effect**: Text glow/shadow for CRT monitor effect
+- **Layout**: Centered ASCII art, responsive font sizing
 
-## Configuration Notes
+### Responsive Design
 
-- Default server runs on 127.0.0.1:5052
-- Security features enabled: CSRF protection, secure cookies
-- Session timeout: 4 hours
-- Logging: Rotating file handler (10MB max, 10 backups)
+- Desktop: 0.7rem font size
+- Mobile (<768px): 0.5rem font size
+
+## Deployment
+
+### GitHub Pages Setup
+
+1. Ensure changes are committed to the main branch
+2. GitHub Pages should be configured to serve from the root directory
+3. The `.nojekyll` file ensures static assets are served correctly
+4. Site will be available at your GitHub Pages URL
+
+### Deployment Workflow
+
+```bash
+# Make changes to index.html
+# Test locally
+# Commit and push
+git add index.html
+git commit -m "Update site content"
+git push origin main
+
+# GitHub Pages will auto-deploy within a few minutes
+```
+
+## Content Updates
+
+To update the ASCII art or text:
+1. Edit the content inside `<div class="ascii-art">` in index.html
+2. Maintain the `pre` white-space formatting
+3. Test in browser to ensure proper alignment
+4. Commit and push
+
+To change styling:
+1. Edit the `<style>` section in index.html
+2. Test locally
+3. Commit and push
