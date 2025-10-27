@@ -2,7 +2,6 @@
 
 A minimalist personal website featuring ASCII art logo.
 
-![screenshot](screenshot.png)
 
 ## Overview
 
@@ -14,8 +13,6 @@ Open `index.html` in your browser or use a local server:
 
 ```bash
 python -m http.server 8000
-# or
-php -S localhost:8000
 ```
 
 ## Deployment
