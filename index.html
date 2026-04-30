@@ -3,107 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jeremyschroeder.net</title>
+    <title>Jeremy Schroeder</title>
     <link rel="shortcut icon" href="static/images/profile.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            /* Typography Scale */
+            --text-hero: clamp(3rem, 15vw, 10rem);
+            --text-display: clamp(1.5rem, 5vw, 3rem);
+            --text-body: clamp(0.9rem, 2vw, 1.1rem);
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 8rem;
+
+            /* Colors - start */
+            --color-bg: #000000;
+            --color-text: #ffffff;
+            --color-accent: #00ff88;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             min-height: 100vh;
-            background-color: #000000;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: 'Space Mono', 'Courier New', monospace;
+            transition: background-color 0.1s ease, color 0.1s ease;
+        }
+
+        /* Scroll Sections */
+        .scroll-section {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            color: #ffffff;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            padding: var(--space-md);
+            position: relative;
         }
 
-        .profile-container {
+        /* Hero Section */
+        .hero {
             text-align: center;
-            margin-bottom: 2rem;
+        }
+
+        .hero-name {
+            font-size: var(--text-hero);
+            font-weight: 700;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--color-text) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Links Section */
+        .links-section {
+            text-align: center;
         }
 
         .profile-image {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            border: 2px solid #333;
+            border: 2px solid var(--color-accent);
             object-fit: cover;
-            margin-bottom: 1rem;
+            margin-bottom: var(--space-md);
+            box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
         }
 
         .links {
             display: flex;
-            gap: 1rem;
+            gap: var(--space-md);
             justify-content: center;
-            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .links a {
-            color: #aaa;
+            color: var(--color-text);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
+            font-size: var(--text-body);
+            transition: color 0.3s ease, transform 0.3s ease;
+            position: relative;
+        }
+
+        .links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease;
         }
 
         .links a:hover {
-            color: #fff;
+            color: var(--color-accent);
+            transform: translateY(-2px);
         }
 
-        .ascii-art {
-            font-family: 'Courier New', 'Courier', monospace;
-            color: #00ff00;
-            font-size: 0.7rem;
-            line-height: 1.2;
-            white-space: pre;
-            text-align: left;
-            text-shadow: 0 0 5px #00ff00;
-            display: inline-block;
+        .links a:hover::after {
+            width: 100%;
         }
 
+        /* Scroll Indicator */
+        .scroll-hint {
+            position: absolute;
+            bottom: var(--space-lg);
+            font-size: 0.8rem;
+            opacity: 0.5;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .ascii-art {
-                font-size: 0.5rem;
+            .hero-name {
+                margin-bottom: var(--space-md);
+            }
+
+            .links {
+                flex-direction: column;
+                gap: var(--space-sm);
             }
         }
     </style>
 </head>
 <body>
-    <div class="profile-container">
+    <section class="scroll-section hero" id="hero">
+        <h1 class="hero-name">JEREMY<br>SCHROEDER</h1>
+        <div class="scroll-hint">scroll</div>
+    </section>
+
+    <section class="scroll-section links-section" id="links">
         <img src="static/images/profile.png" alt="Jeremy Schroeder" class="profile-image">
         <div class="links">
-            <a href="https://bsky.app/profile/jeremyschroeder.net">Bluesky</a>
-            <a href="https://www.youtube.com/@bitsofjeremy">YouTube</a>
-            <a href="https://github.com/BitsofJeremy">GitHub</a>
+            <a href="https://bsky.app/profile/jeremyschroeder.net" target="_blank" rel="noopener">Bluesky</a>
+            <a href="https://www.youtube.com/@bitsofJeremy" target="_blank" rel="noopener">YouTube</a>
+            <a href="https://github.com/BitsofJeremy" target="_blank" rel="noopener">GitHub</a>
         </div>
-    </div>
-    <!-- ASCII Art Logo -->
-    <div class="ascii-art">
+    </section>
 
+    <script>
+        // Scroll Color Transition Controller
+        class ScrollColorController {
+            constructor() {
+                this.sections = [
+                    { id: 'hero', bg: '#000000', text: '#ffffff', accent: '#00ff88' },
+                    { id: 'links', bg: '#000000', text: '#00ff88', accent: '#00ffff' }
+                ];
+                this.currentSection = 0;
+                this.init();
+            }
 
-   _
-  |_|___ ___ ___ _____ _ _
-  | | -_|  _| -_|     | | |
- _| |___|_| |___|_|_|_|_  |
-|___|                 |___|
+            init() {
+                // Intersection Observer for section detection
+                const options = {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.5
+                };
 
-         _                 _
- ___ ___| |_ ___ ___ ___ _| |___ ___
-|_ -|  _|   |  _| . | -_| . | -_|  _|
-|___|___|_|_|_| |___|___|___|___|_|
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const sectionId = entry.target.id;
+                            const sectionIndex = this.sections.findIndex(s => s.id === sectionId);
+                            if (sectionIndex !== -1) {
+                                this.applyColors(sectionIndex);
+                            }
+                        }
+                    });
+                }, options);
 
+                // Observe all sections
+                this.sections.forEach(section => {
+                    const el = document.getElementById(section.id);
+                    if (el) this.observer.observe(el);
+                });
+            }
 
-           _
-   ___ ___| |_
- _|   | -_|  _|
-|_|_|_|___|_|
+            applyColors(index) {
+                const section = this.sections[index];
+                document.body.style.backgroundColor = section.bg;
+                document.body.style.setProperty('--color-text', section.text);
+                document.body.style.setProperty('--color-accent', section.accent);
+            }
+        }
 
-    </div>
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            new ScrollColorController();
+        });
+    </script>
 </body>
 </html>
