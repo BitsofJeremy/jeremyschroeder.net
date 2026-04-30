@@ -4,17 +4,106 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>jeremyschroeder.net</title>
+    <link rel="shortcut icon" href="static/images/favicon.ico">
     <style>
-        body { font-family: system-ui, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; background: #0a0a0a; color: #fff; }
-        .container { text-align: center; }
-        h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-        p { color: #888; font-size: 1.1rem; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .profile-container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid #333;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .links a {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .links a:hover {
+            color: #fff;
+        }
+
+        .ascii-art {
+            font-family: 'Courier New', 'Courier', monospace;
+            color: #00ff00;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            white-space: pre;
+            text-align: left;
+            text-shadow: 0 0 5px #00ff00;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .ascii-art {
+                font-size: 0.5rem;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>jeremyschroeder.net</h1>
-        <p>Coming soon.</p>
+    <div class="profile-container">
+        <img src="static/images/profile.jpeg" alt="Jeremy Schroeder" class="profile-image">
+        <div class="links">
+            <a href="https://bsky.app/profile/jeremyschroeder.net">Bluesky</a>
+            <a href="https://www.youtube.com/@bitsofjeremy">YouTube</a>
+            <a href="https://github.com/BitsofJeremy">GitHub</a>
+        </div>
+    </div>
+    <!-- ASCII Art Logo -->
+    <div class="ascii-art">
+
+
+   _
+  |_|___ ___ ___ _____ _ _
+  | | -_|  _| -_|     | | |
+ _| |___|_| |___|_|_|_|_  |
+|___|                 |___|
+
+         _                 _
+ ___ ___| |_ ___ ___ ___ _| |___ ___
+|_ -|  _|   |  _| . | -_| . | -_|  _|
+|___|___|_|_|_| |___|___|___|___|_|
+
+
+           _
+   ___ ___| |_
+ _|   | -_|  _|
+|_|_|_|___|_|
+
     </div>
 </body>
 </html>
